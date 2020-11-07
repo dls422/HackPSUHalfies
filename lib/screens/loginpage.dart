@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:halfsies/main.dart';
+import 'package:halfsies/screens/homepage.dart';
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -9,7 +11,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String _email;
   String _password;
-
+  String _dn;
   Future<void> _createUser() async
   {
     try {
@@ -52,6 +54,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             TextField(
+              obscureText: true,
+
               onChanged: (value) {
                 _password = value;
               },
@@ -68,9 +72,12 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text("Login"),
                 ),
                 MaterialButton(
-                  onPressed: _createUser,
-
                   child: Text("Create New Account"),
+                  onPressed: ()
+                  {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CreateUser()));
+                  },
                 )
 
               ],
@@ -79,5 +86,76 @@ class _LoginPageState extends State<LoginPage> {
         ),
       )
     );
+  }
+}
+class CreateUser extends StatelessWidget {
+  String _dn, _password, _email;
+  @override
+  Widget build(BuildContext context) {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text("Create Account"),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  onChanged: (value) {
+                    _dn = value;
+                  },
+                  decoration: InputDecoration(
+                      hintText: "Display Name"
+                  ),
+                ),
+
+                TextField(
+                  onChanged: (value) {
+                    _email = value;
+                  },
+                  decoration: InputDecoration(
+                      hintText: "Email Address"
+                  ),
+                ),
+                TextField(
+                  obscureText: true,
+                  onChanged: (value) {
+                    _password = value;
+                  },
+
+                  decoration: InputDecoration(
+
+                      hintText: "Password"
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MaterialButton(
+                      child: Text("Create New Account"),
+                      onPressed: () async {
+                        try {
+                          UserCredential userCredential = await FirebaseAuth
+                              .instance.createUserWithEmailAndPassword(
+                              email: _email, password: _password);
+                          await FirebaseAuth.instance.currentUser.updateProfile(displayName: _dn);
+                          await print(FirebaseAuth.instance.currentUser.displayName);
+                        } on FirebaseAuthException catch (e) {
+                          print("Error: $e");
+                        } catch (e) {
+                          print("Error: $e");
+                        }
+                        Navigator.pop(context);
+
+                      }
+                    ),
+
+                  ],
+                )
+              ],
+            ),
+          )
+      );
   }
 }
