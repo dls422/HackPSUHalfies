@@ -89,3 +89,15 @@ class Account {
     this.name = name;
   }
 }
+
+class BankAccount {
+  BankAccount({String cardNumber, String CVV, String expDate}){
+    this.cardNumber = cardNumber;
+    this.CVV = CVV;
+    this.expDate = expDate;
+  }
+
+  String cardNumber;
+  String CVV;
+  String expDate;
+}
