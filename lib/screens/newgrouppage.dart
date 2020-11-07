@@ -11,27 +11,25 @@ class _NewGroupPageState extends State<NewGroupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Create a new group'),
-      ),
-      body: Column(
-        children: [
-          TextField(
-            onChanged: (value) {
-              groupName = value;
-            },
-            maxLines: 4,
-          ),
-          IconButton(
-            icon: Icon(Icons.add),
-            iconSize: 100,
-            onPressed: () {
-              Navigator.pop(context, groupName);
-            }
-          )
-        ],
-      )
-
-    );
+        appBar: AppBar(
+          title: Text('Create a new group'),
+        ),
+        body: Column(
+          children: [
+            TextField(
+              decoration: new InputDecoration(hintText: "Group name"),
+              onChanged: (value) {
+                groupName = value;
+              },
+              maxLines: 4,
+            ),
+            IconButton(
+                icon: Icon(Icons.add),
+                iconSize: 100,
+                onPressed: () {
+                  Navigator.pop(context, groupName);
+                })
+          ],
+        ));
   }
 }

@@ -61,7 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   )
                 ])),
             const SizedBox(height: 25),
-            Text('   Banking settings',
+            Text('   Notification settings',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: (FontWeight.bold),
