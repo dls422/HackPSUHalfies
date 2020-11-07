@@ -51,6 +51,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Column(children: <Widget>[
                   ListTile(
                     title: Text('Change password'),
+                    onTap: () async
+                    {
+                      await FirebaseAuth.instance.sendPasswordResetEmail(email: FirebaseAuth.instance.currentUser.email);
+                    },
                     leading:
                     Icon(Icons.lock, color: Colors.lightBlueAccent[200]),
                     trailing: Icon(Icons.arrow_forward_ios),
