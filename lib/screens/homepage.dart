@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import 'newgrouppage.dart';
 import 'settingspage.dart';
+import 'bankaccountpage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           PopupMenuButton<String>(
             onSelected: handleClick,
             itemBuilder: (BuildContext context) {
-              return {'Logout', 'Settings'}.map((String choice) {
+              return {'Logout', 'Settings', 'Bank Account'}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
@@ -102,6 +103,10 @@ class _HomePageState extends State<HomePage> {
       case 'Settings':
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => SettingsPage()));
+        break;
+      case 'Bank Account' :
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BankAccountPage()));
 
         break;
     }
