@@ -12,8 +12,11 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
+List<Group> _groups = <Group>[
+];
 
 class _HomePageState extends State<HomePage> {
+
   Widget _dialogBuilder(BuildContext context, Group group) {
     return SimpleDialog(children: [
       Container(
@@ -24,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _listItemBuilder(BuildContext context, int index) {
+
     return new GestureDetector(
       onTap: () => showDialog(
         context: context,
@@ -35,6 +39,7 @@ class _HomePageState extends State<HomePage> {
           alignment: Alignment.center,
           child: Text(_groups[index].name,
               style: Theme.of(context).textTheme.headline)),
+
     );
   }
 
@@ -62,16 +67,27 @@ class _HomePageState extends State<HomePage> {
         itemCount: _groups.length,
         itemExtent: 150.0,
         itemBuilder: _listItemBuilder,
+
       ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           backgroundColor: Colors.blueAccent[900],
-          onPressed: () {
-            Navigator.push(context,
+          onPressed:  () async {
+            final name = await Navigator.push(context,
                 MaterialPageRoute(builder: (context) => NewGroupPage()));
+            if(name!=null) {
+              _addGroup(name);
+            }
           }),
     );
   }
+  void _addGroup(_name)
+  {
+    setState(() {
+      _groups.add(Group(name: _name));
+    });
+  }
+
 
   void handleClick(String value) {
     switch (value) {
@@ -81,13 +97,11 @@ class _HomePageState extends State<HomePage> {
       case 'Settings':
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => SettingsPage()));
+
         break;
     }
   }
+
 }
 
-List<Group> _groups = <Group>[
-  Group(name: 'Test Group 1'),
-  Group(name: 'Test Group 2'),
-  Group(name: 'Test Group 3'),
-];
+
