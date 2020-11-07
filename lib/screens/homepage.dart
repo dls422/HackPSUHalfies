@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -83,8 +84,12 @@ class _HomePageState extends State<HomePage> {
   }
   void _addGroup(_name)
   {
+    final fb = FirebaseDatabase.instance;
+    final ref = fb.reference();
     setState(() {
       _groups.add(Group(name: _name));
+      ref.child(FirebaseAuth.instance.currentUser.uid).child("Groups").child(_name).set("People in group");
+      //this will add to the database with the temporary data of "People in group", when we implement groups properly (with actual other users), change this
     });
   }
 
