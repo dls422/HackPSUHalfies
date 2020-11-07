@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "536064604997",
+    "firebase_url": "https://halfsies-946d9.firebaseio.com",
+    "project_id": "halfsies-946d9",
+    "storage_bucket": "halfsies-946d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536064604997:android:b1dfcd3117d04fc87d1c2c",
+        "android_client_info": {
+          "package_name": "com.hackPSU.halfsies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "536064604997-rcrosk5111vrs1nlidikqkvhdeluc6cg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfHLk9JmfuFPRpwU7H3hJlJF_VBk20vF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "536064604997-rcrosk5111vrs1nlidikqkvhdeluc6cg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
