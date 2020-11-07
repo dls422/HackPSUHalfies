@@ -88,8 +88,8 @@ class _HomePageState extends State<HomePage> {
     final ref = fb.reference();
     setState(() {
       _groups.add(Group(name: _name));
-      ref.child(FirebaseAuth.instance.currentUser.uid).child("Groups").child(_name).set("People in group");
-      //this will add to the database with the temporary data of "People in group", when we implement groups properly (with actual other users), change this
+      ref.child(FirebaseAuth.instance.currentUser.uid).child("Groups").child(_name).set(["People", "In", "Group"]);
+      //this will add to the database with the temporary data of "People", "In", and "Group", when we implement groups properly (with actual other users), change this
     });
   }
 
