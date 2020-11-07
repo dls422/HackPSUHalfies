@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:halfsies/main.dart';
@@ -139,8 +140,12 @@ class CreateUser extends StatelessWidget {
                           UserCredential userCredential = await FirebaseAuth
                               .instance.createUserWithEmailAndPassword(
                               email: _email, password: _password);
+                          final fb = FirebaseDatabase.instance;
+                          final ref = fb.reference();
                           await FirebaseAuth.instance.currentUser.updateProfile(displayName: _dn);
-                          await print(FirebaseAuth.instance.currentUser.displayName);
+                          await ref.child(FirebaseAuth.instance.currentUser.uid).child("Display Name").set(_dn);
+                          await ref.child(FirebaseAuth.instance.currentUser.uid).child("Email").set(_email);
+                          //adds the new account to the database so that we can eventually search through users
                         } on FirebaseAuthException catch (e) {
                           print("Error: $e");
                         } catch (e) {

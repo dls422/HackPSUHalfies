@@ -17,9 +17,9 @@ List<Group> _groups = <Group>[
 ];
 
 class _HomePageState extends State<HomePage> {
-
   Widget _dialogBuilder(BuildContext context, Group group) {
-    return SimpleDialog(children: [
+    return SimpleDialog(
+        children: [
       Container(
         width: 50,
         height: 400,
