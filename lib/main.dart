@@ -67,3 +67,25 @@ class LandingPage extends StatelessWidget {
     );
   }
 }
+
+class Group {
+  Group({String name}){
+    this.name = name;
+  }
+
+  String name;
+  var members = <Account>{};
+  Account owner;
+
+  void addMember(Account account){
+    this.members.add(account);
+  }
+}
+
+class Account {
+  String name;
+
+  void setName(String name){
+    this.name = name;
+  }
+}
