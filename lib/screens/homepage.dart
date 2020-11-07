@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
       onTap: () => showDialog(
         context: context,
         builder: (context) => _dialogBuilder(context, _groups[index]),
+
       ),
       child: Container(
           margin: EdgeInsets.all(15),
@@ -75,21 +76,23 @@ class _HomePageState extends State<HomePage> {
           child: Icon(Icons.add),
           backgroundColor: Colors.blueAccent[900],
           onPressed:  () async {
-            final name = await Navigator.push(context,
+            final data = await Navigator.push(context,
                 MaterialPageRoute(builder: (context) => NewGroupPage()));
-            if(name!=null) {
-              _addGroup(name);
+            if(data[0]!=null) {
+              _addGroup(data);
             }
           }),
     );
   }
-  void _addGroup(_name)
+  void _addGroup(data)
   {
     final fb = FirebaseDatabase.instance;
     final ref = fb.reference();
     setState(() {
+      String _name = data[0];
+      data.removeAt(0);
       _groups.add(Group(name: _name));
-      ref.child(FirebaseAuth.instance.currentUser.uid).child("Groups").child(_name).set(["People", "In", "Group"]);
+      ref.child(FirebaseAuth.instance.currentUser.uid).child("Groups").child(_name).set(data);
       //this will add to the database with the temporary data of "People", "In", and "Group", when we implement groups properly (with actual other users), change this
     });
   }
