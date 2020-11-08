@@ -10,6 +10,7 @@ import '../main.dart';
 class GroupPage extends StatelessWidget {
   final Group group;
   BuildContext context1;
+  bool editMembers = false;
 
   GroupPage({Key key, @required this.group}) : super(key: key);
 
@@ -23,6 +24,17 @@ class GroupPage extends StatelessWidget {
             title: Text(group.members[index],
               style: TextStyle(fontSize: 20),
             ),
+            trailing: editMembers
+            ? IconButton(
+              icon: Icon(
+                  Icons.remove_circle_rounded,
+                color: Colors.red,),
+              onPressed: () {
+                group.removeMember(index);
+                (context1 as Element).markNeedsBuild();
+              },
+            )
+            : null,
           ),
         ),
       ),
@@ -80,6 +92,11 @@ class GroupPage extends StatelessWidget {
   {
     switch (value) {
       case 'Edit members':
+        (context1 as Element).markNeedsBuild();
+        if(editMembers)
+          editMembers = false;
+        else
+          editMembers = true;
         break;
       case 'Add payments':
         break;
