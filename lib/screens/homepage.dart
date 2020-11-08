@@ -155,7 +155,8 @@ class _HomePageState extends State<HomePage> {
       String _name = data[0];
       data.removeAt(0);
       Group grp = new Group(_name);
-      for (int i = 0; i < data.length; i++) {
+      for (int i = 0; i < data.length; i++)
+      {
         grp.addMember(data[i]);
         print(data[i]);
       }

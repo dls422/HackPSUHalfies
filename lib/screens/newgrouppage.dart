@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_list.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _NewGroupPageState extends State<NewGroupPage> {
       Map<dynamic, dynamic> values = snapshot.value;
       values.forEach((key, values) {
         print(values["Display Name"]);
-        if (values["Display Name"] != null) {
+        if (values["Display Name"] != null && values["Display Name"]!= FirebaseAuth.instance.currentUser.displayName) {
           setState(() {
             names.add(values["Display Name"]);
           });
@@ -57,6 +58,7 @@ class _NewGroupPageState extends State<NewGroupPage> {
               iconSize: 100,
               onPressed: () {
                 data.insert(0, groupName);
+                data.add(FirebaseAuth.instance.currentUser.displayName);
                 Navigator.pop(context, data);
               }),
           Expanded(
