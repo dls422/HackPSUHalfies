@@ -12,7 +12,6 @@ class BankAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTitle = 'Bank Account';
-
     return Scaffold(
         appBar: AppBar(
           elevation: 10,
@@ -20,10 +19,6 @@ class BankAccountPage extends StatelessWidget {
         ),
         body: MyCustomForm(),
       );
-
-
-
-
   }
 }
 

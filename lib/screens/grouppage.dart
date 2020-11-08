@@ -31,6 +31,9 @@ class GroupPage extends StatelessWidget {
                 color: Colors.red,),
               onPressed: () {
                 group.removeMember(index);
+                FirebaseDatabase.instance.reference().child(FirebaseAuth.instance.currentUser.uid).child("Groups").child(group.name).set(group.getMembers());
+                //FirebaseDatabase.instance.reference().child(FirebaseAuth.instance.currentUser.uid).child("Groups").child(group.name).child(group.getMember(index)).remove();
+
                 (context1 as Element).markNeedsBuild();
               },
             )
