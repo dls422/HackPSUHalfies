@@ -13,6 +13,7 @@ class _NewGroupPageState extends State<NewGroupPage> {
   String groupName;
   var data = new List();
   var names;
+  var checked = new List();
   List getNames()
   {
     var names = new List();
@@ -49,13 +50,6 @@ class _NewGroupPageState extends State<NewGroupPage> {
               decoration: new InputDecoration(hintText: "Group name"),
               onChanged: (value) async {
                 groupName = value;
-                if(data.length == 0)
-                  {
-                    data.add(value);
-                  }
-                else {
-                  data[0] = value;
-                }
               },
               maxLines: 4,
             ),
@@ -63,13 +57,8 @@ class _NewGroupPageState extends State<NewGroupPage> {
                 icon: Icon(Icons.add),
                 iconSize: 100,
                 onPressed: () {
-                  if(data.length >= 1) {
-                    data.add("hen xd");
-                    data.add("steven xd");
-                    data.add("dan xd");
-                    data.add("matt xd");
-                    Navigator.pop(context, data);
-                  }
+                  data.insert(0, groupName);
+                  Navigator.pop(context, data);
                 }),
             Expanded(
               child:
@@ -77,9 +66,61 @@ class _NewGroupPageState extends State<NewGroupPage> {
                 padding: const EdgeInsets.all(8),
                 itemCount: names.length,
                 itemBuilder: (BuildContext context, int index) {
+                  print(data);
+                  if(checked.length < names.length) {
+                    print("wine pon");
+                    checked = new List<bool>.filled(names.length + 1, false);
+                  }
                   return Container(
                       height: 50,
-                      child: Center(child: Text("${names[index]}"))
+                      child:
+                      CheckboxListTile(
+                        title: Text("${names[index]}"),
+                        value: checked[index],
+                        onChanged: (bool value)
+                        {
+                          print(data);
+                          if(value)
+                            {
+                              data.add(names[index]);
+                            }
+                          else
+                            {
+                              data.remove(names[index]);
+                            }
+                          setState(() {
+                            checked[index] = value;
+                          });
+                        },
+                      )
+
+                      // Row(
+                      //   children: [
+                      //
+                      //       Text("${names[index]}"),
+                      //       Checkbox(
+                      //         value: checked[index],
+                      //         onChanged: (newValue)
+                      //         {
+                      //           print(checked[index]);
+                      //           if(newValue == true)
+                      //           {
+                      //             data.add(names[index]);
+                      //           }
+                      //           else
+                      //           {
+                      //             data.remove(names[index]);
+                      //           }
+                      //           setState(() {
+                      //             checked[index] = newValue;
+                      //           });
+                      //         },
+                      //       ),
+                      //
+                      //     ],
+                      // ),
+
+
                   );
                 },
 
