@@ -19,20 +19,15 @@ class HomePage extends StatefulWidget {
 List<Group> _groups = <Group>[];
 
 class _HomePageState extends State<HomePage> {
-  Widget _dialogBuilder(BuildContext context, Group group) {
-    return SimpleDialog(children: [
-      Container(
-        width: 50,
-        height: 400,
-      ),
-    ]);
-  }
-
   Widget _listItemBuilder(BuildContext context, int index) {
     return new GestureDetector(
-      onTap: () async {
-        final name = await Navigator.push(
-            context, MaterialPageRoute(builder: (context) => GroupPage()));
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => GroupPage(),
+          ),
+        );
       },
       child: Container(
           margin: EdgeInsets.all(15),
@@ -93,7 +88,6 @@ class _HomePageState extends State<HomePage> {
           .child("Groups")
           .child(_name)
           .set(data);
-      //this will add to the database with the temporary data of "People", "In", and "Group", when we implement groups properly (with actual other users), change this
     });
   }
 
