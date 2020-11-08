@@ -75,7 +75,7 @@ class Group {
   }
 
   String name;
-  var members = <String>{};
+  var members = new List<String>();
   Account owner;
 
   void addMember(String account)
