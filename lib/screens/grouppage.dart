@@ -76,7 +76,8 @@ class GroupPage extends StatelessWidget {
       ),
     );
   }
-  void handleClick(String value) {
+  void handleClick(String value)
+  {
     switch (value) {
       case 'Edit members':
         break;

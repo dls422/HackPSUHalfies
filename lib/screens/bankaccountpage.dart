@@ -7,15 +7,14 @@ class BankAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final appTitle = 'Bank Account';
 
-    return MaterialApp(
-      title: appTitle,
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
+          elevation: 10,
           title: Text(appTitle),
         ),
         body: MyCustomForm(),
-      ),
-    );
+      );
+
 
 
 
