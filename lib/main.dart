@@ -86,6 +86,10 @@ class Group {
   void removeMember(int index) {
     this.members.removeAt(index);
   }
+  List<String> getMembers()
+  {
+    return this.members;
+  }
 
 }
 
