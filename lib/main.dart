@@ -83,6 +83,10 @@ class Group {
     this.members.add(account);
   }
 
+  void removeMember(int index) {
+    this.members.removeAt(index);
+  }
+
 }
 
 class Account {
