@@ -1,11 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'homepage.dart';
 
 import '../main.dart';
 
 class GroupPage extends StatelessWidget {
   final Group group;
-
+  BuildContext context1;
 
   GroupPage({Key key, @required this.group}) : super(key: key);
 
@@ -27,6 +31,7 @@ class GroupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context1 = context;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -71,15 +76,18 @@ class GroupPage extends StatelessWidget {
       ),
     );
   }
+  void handleClick(String value) {
+    switch (value) {
+      case 'Edit members':
+        break;
+      case 'Add payments':
+        break;
+      case 'Delete group':
+        FirebaseDatabase.instance.reference().child(FirebaseAuth.instance.currentUser.uid).child("Groups").child(group.name).remove();
+        Navigator.pop(context1, true);
+        break;
+    }
+  }
+
 }
 
-void handleClick(String value) {
-  switch (value) {
-    case 'Edit members':
-      break;
-    case 'Add payments':
-      break;
-    case 'Delete group':
-      break;
-  }
-}
