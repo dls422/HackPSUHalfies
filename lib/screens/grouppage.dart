@@ -16,8 +16,7 @@ class GroupPage extends StatelessWidget {
         shape: RoundedRectangleBorder(),
         child: Container(
           child: ListTile(
-            title: Text(
-              '',
+            title: Text(group.members[index],
               style: TextStyle(fontSize: 20),
             ),
           ),
@@ -32,6 +31,7 @@ class GroupPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          elevation: 10,
           actions: <Widget>[
             PopupMenuButton<String>(
               onSelected: handleClick,
@@ -46,14 +46,14 @@ class GroupPage extends StatelessWidget {
               },
             ),
           ],
-          title: Text(group.name), //CHANGE
+          title: Text(group.name),
           backgroundColor: Colors.blueAccent[600],
           bottom: TabBar(
             tabs: [
               Tab(
                   text: 'MEMBERS (' +
                       '${group.members.length}' +
-                      ')'), //CHANGE: number of members in the group
+                      ')'),
               Tab(text: 'PAYMENTS'),
             ],
           ),
@@ -61,7 +61,7 @@ class GroupPage extends StatelessWidget {
         body: TabBarView(children: [
           //MEMBERS tab
           ListView.builder(
-            itemCount: 0, //CHANGE: number of members
+            itemCount: group.members.length,
             itemExtent: 50.0,
             itemBuilder: _listItemBuilder,
           ),

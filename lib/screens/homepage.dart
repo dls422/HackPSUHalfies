@@ -19,9 +19,8 @@ class HomePage extends StatefulWidget {
 List<Group> _groups = <Group>[];
 
 class _HomePageState extends State<HomePage> {
-
   Widget _listItemBuilder(BuildContext context, int index) {
-    return new GestureDetector(
+    return new InkWell(
       onTap: () {
         Navigator.push(
           context,
@@ -30,31 +29,50 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       },
-      child: Container(
-          margin: EdgeInsets.all(15),
-          color: Colors.lightBlueAccent[100],
-          alignment: Alignment.center,
-          child: Text(_groups[index].name,
-              style: Theme.of(context).textTheme.headline)),
+      child: Column(
+        children: <Widget>[
+          const SizedBox(height: 20),
+          ListTile(
+            leading: Icon(Icons.account_circle, size: 42),
+            title: Text(
+              _groups[index].name,
+              style: TextStyle(
+                fontSize: 24,
+              ),
+            ),
+            subtitle: Text(
+              (_groups[index].members.length).toString() + ' members',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+          ),
+          const Divider(
+            thickness: 5,
+          ),
+        ],
+      ),
     );
   }
-  List getGroups()
-  {
+
+  List getGroups() {
     List<Group> groups = new List();
-    var db = FirebaseDatabase.instance.reference().child("${FirebaseAuth.instance.currentUser.uid}").child("Groups");
-    db.once().then((DataSnapshot snapshot){
+    var db = FirebaseDatabase.instance
+        .reference()
+        .child("${FirebaseAuth.instance.currentUser.uid}")
+        .child("Groups");
+    db.once().then((DataSnapshot snapshot) {
       Map<dynamic, dynamic> values = snapshot.value;
-      values.forEach((key,values) {
-        if(key!= null) {
+      values.forEach((key, values) {
+        if (key != null) {
           String gName = key;
           List members = values;
 
           setState(() {
             Group ng = new Group(gName);
-            for(int i = 0; i<members.length;i++)
-              {
-                ng.addMember(members[i].toString());
-              }
+            for (int i = 0; i < members.length; i++) {
+              ng.addMember(members[i].toString());
+            }
             groups.add(ng);
           });
         }
@@ -62,9 +80,9 @@ class _HomePageState extends State<HomePage> {
     });
     return groups;
   }
+
   @override
-  void initState()
-  {
+  void initState() {
     _groups = getGroups();
     super.initState();
   }
@@ -73,6 +91,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 10,
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: handleClick,
@@ -89,11 +108,33 @@ class _HomePageState extends State<HomePage> {
         ],
         title: Text("${FirebaseAuth.instance.currentUser.email}"),
       ),
-      body: ListView.builder(
-        itemCount: _groups.length,
-        itemExtent: 150.0,
-        itemBuilder: _listItemBuilder,
-      ),
+      body: _groups.length != 0
+          ? ListView.builder(
+              itemCount: _groups.length,
+              itemExtent: 108.0,
+              itemBuilder: _listItemBuilder,
+            )
+          : Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "You currently aren't in any groups.",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    "Click the button to create one!",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           backgroundColor: Colors.blueAccent[900],
@@ -114,11 +155,10 @@ class _HomePageState extends State<HomePage> {
       String _name = data[0];
       data.removeAt(0);
       Group grp = new Group(_name);
-      for(int i = 0; i<data.length; i++)
-        {
-          grp.addMember(data[i]);
-          print(data[i]);
-        }
+      for (int i = 0; i < data.length; i++) {
+        grp.addMember(data[i]);
+        print(data[i]);
+      }
       _groups.add(grp);
       print(grp.members);
 
@@ -142,7 +182,6 @@ class _HomePageState extends State<HomePage> {
       case 'Bank Account':
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => BankAccountPage()));
-
         break;
     }
   }

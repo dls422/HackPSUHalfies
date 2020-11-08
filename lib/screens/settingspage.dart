@@ -15,57 +15,67 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 10,
         title: Text('Settings'),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: [
             //Profile bar
             Card(
               color: Colors.lightBlueAccent[100],
               child: ListTile(
-                  leading: Icon(Icons.sentiment_satisfied,
-                      size: 40, color: Colors.black),
-                  title: Text('${FirebaseAuth.instance.currentUser.email}',
-                      style: TextStyle(
-                        fontSize: 20,
-                      )),
-                  subtitle: Text("\$0",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ))),
+                leading: Icon(Icons.sentiment_satisfied,
+                    size: 40, color: Colors.black),
+                title: Text('${FirebaseAuth.instance.currentUser.email}',
+                    style: TextStyle(
+                      fontSize: 20,
+                    )),
+                subtitle: Text(
+                  "\$0",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ),
             ),
             //Change password button
             const SizedBox(height: 25),
-            Text('   Account settings',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: (FontWeight.bold),
-                )),
+            Text(
+              '   Account settings',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: (FontWeight.bold),
+              ),
+            ),
             Card(
-                margin:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                elevation: 5,
-                shape: RoundedRectangleBorder(),
-                child: Column(children: <Widget>[
+              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              elevation: 5,
+              shape: RoundedRectangleBorder(),
+              child: Column(
+                children: <Widget>[
                   ListTile(
                     title: Text('Change password'),
-                    onTap: () async
-                    {
-                      await FirebaseAuth.instance.sendPasswordResetEmail(email: FirebaseAuth.instance.currentUser.email);
+                    onTap: () async {
+                      await FirebaseAuth.instance.sendPasswordResetEmail(
+                          email: FirebaseAuth.instance.currentUser.email);
                     },
                     leading:
-                    Icon(Icons.lock, color: Colors.lightBlueAccent[200]),
+                        Icon(Icons.lock, color: Colors.lightBlueAccent[200]),
                     trailing: Icon(Icons.arrow_forward_ios),
-                  )
-                ])),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 25),
-            Text('   Notification settings',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: (FontWeight.bold),
-                )),
+            Text(
+              '   Notification settings',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: (FontWeight.bold),
+              ),
+            ),
             SwitchListTile(
               activeColor: Colors.lightBlueAccent[400],
               inactiveThumbColor: Colors.grey,
