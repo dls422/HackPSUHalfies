@@ -102,6 +102,8 @@ class GroupPage extends StatelessWidget {
           editMembers = true;
         break;
       case 'Add payments':
+        editMembers = false;
+        (context1 as Element).markNeedsBuild();
         break;
       case 'Delete group':
         FirebaseDatabase.instance.reference().child(FirebaseAuth.instance.currentUser.uid).child("Groups").child(group.name).remove();
