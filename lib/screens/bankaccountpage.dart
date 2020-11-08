@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_list.dart';
 
+
+List bank_accounts = ["123456","654321","jeff", "827137", "111111"];
+//List of example bank accounts
 
 
 class BankAccountPage extends StatelessWidget {
@@ -49,8 +55,12 @@ class MyCustomFormState extends State<MyCustomForm> {
           ),
           TextFormField(
             validator: (value) {
+
               if (value.isEmpty) {
                 return 'Please enter a valid bank account ID';
+              }
+              if (!bank_accounts.contains(value)){
+                return "Please enter a valid bank account ID";
               }
               return null;
             },
@@ -61,10 +71,14 @@ class MyCustomFormState extends State<MyCustomForm> {
               onPressed: () {
                 // Validate returns true if the form is valid, or false
                 // otherwise.
+
                 if (_formKey.currentState.validate()) {
                   // If the form is valid, display a Snackbar.
                   Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Processing Data')));
+                      .showSnackBar(SnackBar(content: Text('Data Processed')));
+                  final fb = FirebaseDatabase.instance;
+                  final ref = fb.reference();
+                  ref.child(FirebaseAuth.instance.currentUser.uid).child("Bank_Account").set(_formKey.currentState);
                 }
               },
               child: Text('Submit'),
