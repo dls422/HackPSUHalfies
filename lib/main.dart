@@ -69,23 +69,27 @@ class LandingPage extends StatelessWidget {
 }
 
 class Group {
-  Group({String name}){
+  Group(String name)
+  {
     this.name = name;
   }
 
   String name;
-  var members = <Account>{};
+  var members = <String>{};
   Account owner;
 
-  void addMember(Account account){
+  void addMember(String account)
+  {
     this.members.add(account);
   }
+
 }
 
 class Account {
   String name;
 
-  void setName(String name){
+  void setName(String name)
+  {
     this.name = name;
   }
 }

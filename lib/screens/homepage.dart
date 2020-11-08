@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => GroupPage(),
+            builder: (context) => GroupPage(group: _groups[index]),
           ),
         );
       },
@@ -47,9 +47,14 @@ class _HomePageState extends State<HomePage> {
       values.forEach((key,values) {
         if(key!= null) {
           String gName = key;
+          List members = values;
+
           setState(() {
-            Group ng = new Group();
-            ng.name = gName;
+            Group ng = new Group(gName);
+            for(int i = 0; i<members.length;i++)
+              {
+                ng.addMember(members[i].toString());
+              }
             groups.add(ng);
           });
         }
@@ -108,7 +113,15 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       String _name = data[0];
       data.removeAt(0);
-      _groups.add(Group(name: _name));
+      Group grp = new Group(_name);
+      for(int i = 0; i<data.length; i++)
+        {
+          grp.addMember(data[i]);
+          print(data[i]);
+        }
+      _groups.add(grp);
+      print(grp.members);
+
       ref
           .child(FirebaseAuth.instance.currentUser.uid)
           .child("Groups")

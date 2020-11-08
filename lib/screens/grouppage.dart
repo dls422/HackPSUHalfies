@@ -1,9 +1,13 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+
 class GroupPage extends StatelessWidget {
-  String groupName;
-  var members;
+  final Group group;
+
+
+  GroupPage({Key key, @required this.group}) : super(key: key);
 
   Widget _listItemBuilder(BuildContext context, int index) {
     return new Scaffold(
@@ -42,13 +46,13 @@ class GroupPage extends StatelessWidget {
               },
             ),
           ],
-          title: Text('this.groupName'), //CHANGE
+          title: Text(group.name), //CHANGE
           backgroundColor: Colors.blueAccent[600],
           bottom: TabBar(
             tabs: [
               Tab(
                   text: 'MEMBERS (' +
-                      '0' +
+                      '${group.members.length}' +
                       ')'), //CHANGE: number of members in the group
               Tab(text: 'PAYMENTS'),
             ],
