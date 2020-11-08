@@ -68,7 +68,6 @@ class _NewGroupPageState extends State<NewGroupPage> {
                 itemBuilder: (BuildContext context, int index) {
                   print(data);
                   if(checked.length < names.length) {
-                    print("wine pon");
                     checked = new List<bool>.filled(names.length + 1, false);
                   }
                   return Container(

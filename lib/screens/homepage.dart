@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 List<Group> _groups = <Group>[];
 
 class _HomePageState extends State<HomePage> {
+
   Widget _listItemBuilder(BuildContext context, int index) {
     return new GestureDetector(
       onTap: () {
@@ -36,6 +37,31 @@ class _HomePageState extends State<HomePage> {
           child: Text(_groups[index].name,
               style: Theme.of(context).textTheme.headline)),
     );
+  }
+  List getGroups()
+  {
+    List<Group> groups = new List();
+    var db = FirebaseDatabase.instance.reference().child("${FirebaseAuth.instance.currentUser.uid}").child("Groups");
+    db.once().then((DataSnapshot snapshot){
+      Map<dynamic, dynamic> values = snapshot.value;
+      values.forEach((key,values) {
+        if(key!= null) {
+          String gName = key;
+          setState(() {
+            Group ng = new Group();
+            ng.name = gName;
+            groups.add(ng);
+          });
+        }
+      });
+    });
+    return groups;
+  }
+  @override
+  void initState()
+  {
+    _groups = getGroups();
+    super.initState();
   }
 
   @override
