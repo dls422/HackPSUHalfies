@@ -113,3 +113,14 @@ class BankAccount {
   String CVV;
   String expDate;
 }
+
+//unused
+class Payment {
+  Payment({String name, int cost}) {
+    this.name = name;
+    this.cost = cost;
+  }
+
+  String name;
+  int cost;
+}

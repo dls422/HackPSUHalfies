@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           const SizedBox(height: 20),
           ListTile(
-            leading: Icon(Icons.account_circle, size: 42),
+            leading: Icon(Icons.group, size: 42),
             title: Text(
               _groups[index].name,
               style: TextStyle(
