@@ -21,13 +21,12 @@ List<Group> _groups = <Group>[];
 class _HomePageState extends State<HomePage> {
   Widget _listItemBuilder(BuildContext context, int index) {
     return new InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => GroupPage(group: _groups[index]),
-          ),
-        );
+      onTap: () async {
+        bool didDelete = await Navigator.push(context, MaterialPageRoute(builder: (context) => GroupPage(group: _groups[index]),),);
+        if(didDelete)
+          {
+            removeGroup(index);
+          }
       },
       child: Column(
         children: <Widget>[
@@ -168,6 +167,13 @@ class _HomePageState extends State<HomePage> {
           .child("Groups")
           .child(_name)
           .set(data);
+    });
+  }
+
+  void removeGroup(int index)
+  {
+    setState(() {
+      _groups.removeAt(index);
     });
   }
 
