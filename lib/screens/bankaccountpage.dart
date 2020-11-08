@@ -62,6 +62,13 @@ class MyCustomFormState extends State<MyCustomForm> {
               if (!bank_accounts.contains(value)){
                 return "Please enter a valid bank account ID";
               }
+              else
+                {
+                  final fb = FirebaseDatabase.instance;
+                  final ref = fb.reference();
+                  ref.child(FirebaseAuth.instance.currentUser.uid).child("Bank_Account").set(value);
+
+                }
               return null;
             },
           ),
@@ -76,9 +83,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                   // If the form is valid, display a Snackbar.
                   Scaffold.of(context)
                       .showSnackBar(SnackBar(content: Text('Data Processed')));
-                  final fb = FirebaseDatabase.instance;
-                  final ref = fb.reference();
-                  ref.child(FirebaseAuth.instance.currentUser.uid).child("Bank_Account").set(_formKey.currentState);
                 }
               },
               child: Text('Submit'),
